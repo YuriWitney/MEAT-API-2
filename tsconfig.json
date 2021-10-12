@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "es2015",
+        "module": "commonjs",
+        "skipLibCheck": true, //gambiarra
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": false, //gambiarra
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
+    }
+}
