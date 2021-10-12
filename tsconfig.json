@@ -9,5 +9,8 @@
         "noImplicitReturns": false, //gambiarra
         "noFallthroughCasesInSwitch": true,
         "forceConsistentCasingInFileNames": true,
-    }
+    },
+    "exclude": [
+        "**/*.test.ts"
+    ]
 }

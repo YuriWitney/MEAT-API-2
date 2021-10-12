@@ -1,9 +1,10 @@
 # Dependency directories
-/node_modules/
+node_modules
+package-lock.json
+
 # Enviroments
 .env
-# Lock Json
-package-lock.json
+
 # Unused files
-/garbage/
-/dist
+garbage/
+**/dist
