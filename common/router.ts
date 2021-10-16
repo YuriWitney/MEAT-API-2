@@ -15,10 +15,12 @@ export abstract class Router extends EventEmitter {
 
     render(response: restify.Response, next: restify.Next) {
         return (document) => {
-            this.emit('beforeRender', document)
-            if(document) response.json(this.envelope(document))
+            if(document) {
+							this.emit('beforeRender', document)
+							response.json(this.envelope(document))
+						}
             else throw new NotFoundError('Documento não encontrado')
-            return next()
+            return next(false)
 
         }
     }
@@ -32,7 +34,7 @@ export abstract class Router extends EventEmitter {
                 })
                 response.json(this.envelopeAll(documents, options))
             } else response.json(this.envelopeAll([]))
-            return next()
+            return next(false)
         }
     }
 }
