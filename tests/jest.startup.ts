@@ -1,12 +1,12 @@
 import * as jestCli from 'jest-cli'
-import { enviroment } from "./common/environment"
-import {Server} from './server/server'
-import {usersRouter} from './users/users.router'
-import {User} from './users/users.model'
-import {reviewsRouter} from './reviews/reviews.router'
-import {Review} from './reviews/reviews.model'
-import {restaurantsRouter} from './restaurants/restaurants.router'
-import {Restaurant} from './restaurants/restaurants.model'
+import { enviroment } from "../common/environment"
+import {Server} from '../server/server'
+import {usersRouter} from '../users/users.router'
+import {User} from '../users/users.model'
+import {reviewsRouter} from '../reviews/reviews.router'
+import {Review} from '../reviews/reviews.model'
+import {restaurantsRouter} from '../restaurants/restaurants.router'
+import {Restaurant} from '../restaurants/restaurants.model'
 
 let server: Server
 
