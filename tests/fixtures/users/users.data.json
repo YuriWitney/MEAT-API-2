@@ -1,0 +1,14 @@
+[
+	{
+		"name": "User Jest Test",
+		"email": "jest_user@jest.com",
+		"password": "jest123",
+		"gender": "Male"
+	},{
+		"name": "User Jest Test two",
+		"email": "jest_user2@jest.com",
+		"password": "jest1234",
+		"gender": "Female"
+	}
+]
+	

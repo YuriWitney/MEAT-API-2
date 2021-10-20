@@ -1,0 +1,13 @@
+{
+	"testParams": {
+		"longName": "José Bonifácio Silva Ribeiro Carlos Emanuel Evangelista Castro da Silva e Moura Brasil",
+		"Name": "Jest Test",
+		"shortName": "Ed",
+		"defaultPassword": "jest123",
+		"invalidEmail": "jest.com",
+		"Email": "test@jest.com",
+		"invalidGender": "Shemale",
+		"invalidCpf": "04200000000"
+		
+	}
+}
