@@ -20,7 +20,7 @@ export const authenticate: restify.RequestHandler = (req, res, next) => {
 			})
 			return next(false)
 		} else {
-			return next(new NotAuthorizedError("Invalid credentials"))
+			return next(new NotAuthorizedError("invalid credentials"))
 		}
 	}).catch(next)
 }
