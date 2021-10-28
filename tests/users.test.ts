@@ -402,9 +402,55 @@ describe('Delete tests', () => {
 })
 
 describe('Authentication tests', () => {
+	it('should authorize a authentication', ()=>{
+		return request(address)
+			.post('/users/authenticate')
+			.send({
+				email:"admin@jest.com",
+       	password:"123456"
+			})
+			.then(response=> {
+				expect(response.status).toBe(200)
+				expect(response.body.accessToken).toBeDefined()
+			}).catch(fail)
+	})
+	
+	it('should not authorize a authentication with incorrect password', ()=>{
+		return request(address)
+			.post('/users/authenticate')
+			.send({
+				email:"admin@jest.com",
+       	password:"123"
+			})
+			.then(response=> {
+				expect(response.status).toBe(403)
+				expect(response.body.message).toBe("invalid credentials")
+			}).catch(fail)
+	})
+	
 	it('should not get without authorization', ()=>{
 		return request(address)
 			.get('/users')
+			.then(response=> {
+				expect(response.status).toBe(403)
+				expect(response.body.message).toBe("permission denied")
+			}).catch(fail)
+	})
+
+	it('should not get with invalid payload token', ()=>{
+		return request(address)
+			.get('/users')
+			.set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlQGZha2UuY29tIiwiaWF0IjoxNTE2MjM5MDIyfQ.fcuLkuvDXtdahcOkoqubiBKAS95lEX9opgNXn5JI9to')
+			.then(response=> {
+				expect(response.status).toBe(403)
+				expect(response.body.message).toBe("permission denied")
+			}).catch(fail)
+	})
+
+	it('should not get with invalid signature token', ()=>{
+		return request(address)
+			.get('/users')
+			.set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBqZXN0LmNvbSIsImlhdCI6MTUxNjIzOTAyMn0.YDaVM2_Kt39HmqiEqeTL9c0hf34JTool0JoYbT31Do0')
 			.then(response=> {
 				expect(response.status).toBe(403)
 				expect(response.body.message).toBe("permission denied")
