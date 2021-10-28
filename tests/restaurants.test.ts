@@ -1,5 +1,6 @@
 import 'jest'
 import * as request from 'supertest'
+import * as testUserFixture from './fixtures/users/users.general.json'
 
 let address: string = global.address
 
@@ -7,6 +8,7 @@ describe('Get tests', () => {
 	it('test: get all restaurants from /restaurants', ()=>{
 		return request(address)
 			.get('/restaurants')
+			.set('Authorization', testUserFixture.testParams.auth)
 			.then(response=> {
 				expect(response.status).toBe(200)
 				expect(response.body.items).toBeInstanceOf(Array)
@@ -18,6 +20,7 @@ describe('Post tests', () => {
 	it('should post a restaurant', ()=>{
 		return request(address)
 			.post('/restaurants')
+			.set('Authorization', testUserFixture.testParams.auth)
 			.send({
 				name: "Porco e cia",
 		    menu: [{

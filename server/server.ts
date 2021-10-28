@@ -1,9 +1,11 @@
 import * as restify from 'restify'
+import * as fs from 'fs'
 import * as mongoose from 'mongoose'
 import { enviroment } from '../common/environment'
 import { Router } from '../common/router'
 import { mergePatchBodyParser } from './merge-patch.parser'
 import { handleError } from './error.handler'
+import { tokenParser } from '../security/token.parser'
 require('dotenv/config')
 
 export class Server {
@@ -18,13 +20,21 @@ export class Server {
     initRoutes(routers: Router[]): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
-                this.application = restify.createServer({
-                    name:'meat-api',
-                    version: '1.0.0'})
+
+								const options: restify.ServerOptions = {
+									name:'meat-api',
+	                version: '1.0.0'
+								}
+								if(enviroment.security.enableHTTPS) {
+									options.certificate = fs.readFileSync(enviroment.security.certificate),
+									options.key = fs.readFileSync(enviroment.security.key)
+								}
+                this.application = restify.createServer(options)
                 
                 this.application.use(restify.plugins.queryParser()) 
                 this.application.use(restify.plugins.bodyParser()) 
                 this.application.use(mergePatchBodyParser)
+								this.application.use(tokenParser)
                 
                 //routes
                 for (let  router of routers) router.applyRoutes(this.application)

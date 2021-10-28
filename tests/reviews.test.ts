@@ -1,6 +1,7 @@
 import 'jest'
 import * as request from 'supertest'
 import * as mongoose from 'mongoose'
+import * as testUserFixture from './fixtures/users/users.general.json'
 
 let address: string = global.address
 
@@ -8,6 +9,7 @@ describe('Get tests', () => {
 	it('test: get all reviews from /reviews', ()=>{
 		return request(address)
 			.get('/reviews')
+			.set('Authorization', testUserFixture.testParams.auth)
 			.then(response=> {
 				expect(response.status).toBe(200)
 				expect(response.body.items).toBeInstanceOf(Array)
@@ -19,6 +21,7 @@ describe('Post tests', () => {
 	it('should post a review', ()=>{
 		return request(address)
 			.post('/reviews')
+			.set('Authorization', testUserFixture.testParams.auth)
 			.send({
 				date: "2021-10-09T18:08:10",
 		    rating: 4,
