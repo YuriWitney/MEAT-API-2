@@ -7,7 +7,8 @@
 		"invalidEmail": "jest.com",
 		"Email": "test@jest.com",
 		"invalidGender": "Shemale",
-		"invalidCpf": "04200000000"
+		"invalidCpf": "04200000000",
+		"auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBqZXN0LmNvbSIsImlhdCI6MTUxNjIzOTAyMn0.nqP18iC1pFgjEUCqes7ExaPzHYUQVmhcTSQp0F1x5DM"
 		
 	}
 }

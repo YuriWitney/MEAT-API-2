@@ -6,12 +6,15 @@
   "author": "yuriwitney <yuriwfbarros@gmail.com>",
   "license": "ISC",
   "scripts": {
-    "test": "ts-node tests/jest.startup.ts --config ./tests/jest.config.js"
+    "test": "ts-node tests/jest.startup.ts --config ./tests/jest.config.js",
+    "style:check": "prettier --check src/**/*.ts tests/**/*.ts",
+    "style:fix": "prettier --write src/**/*.ts tests/**/*.ts"
   },
   "dependencies": {
     "bcrypt": "5.0.1",
     "dotenv": "^10.0.0",
     "faker": "^5.5.3",
+    "jsonwebtoken": "8.1.1",
     "mongoose": "4.13.9",
     "restify": "6.3.4",
     "restify-errors": "5.0.0"
@@ -20,12 +23,17 @@
     "@types/bcrypt": "1.0.0",
     "@types/faker": "^5.5.9",
     "@types/jest": "22.1.2",
+    "@types/jsonwebtoken": "7.2.5",
     "@types/mongoose": "4.7.32",
     "@types/restify": "5.0.6",
     "@types/restify-errors": "4.3.2",
     "@types/supertest": "2.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "^8.1.0",
     "jest": "22.4.2",
     "jest-cli": "22.4.2",
+    "prettier": "^2.4.1",
     "supertest": "3.0.0",
     "ts-jest": "22.0.4",
     "ts-node": "5.0.1",
