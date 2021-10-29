@@ -1,9 +1,11 @@
 import { Router } from './router'
 import * as mongoose from 'mongoose'
 import { NotFoundError } from 'restify-errors'
+import { enviroment } from './environment'
 
 export abstract class ModelRouter<Document extends mongoose.Document> extends Router {
     basePath: string
+    pageSize: number = 4
     
     constructor(protected model: mongoose.Model<Document>) {
         super()
@@ -17,6 +19,26 @@ export abstract class ModelRouter<Document extends mongoose.Document> extends Ro
     envelope(document: any):any {
         let resource = Object.assign({_links: {}}, document.toJSON())
         resource._links.self = `${this.basePath}/${resource._id}`
+        resource._links.main = enviroment.server.url
+        return resource
+    }
+
+    envelopeAll(documents: any[], options: any = {}): any {
+        const resource: any = {
+            _links: {
+                self: `${options.url}`
+            },
+            items: documents
+        }
+        if(options.page && options.pageSize && options.count){
+            if(options.page > 1){
+                resource._links.previous = `${this.basePath}?_page=${options.page - 1}`
+            }
+            const remaining = options.count - (options.pageSize * options.page)
+            if(remaining > 0){
+                resource._links.next = `${this.basePath}?_page=${options.page + 1}`
+            } 
+        }
         return resource
     }
 
@@ -26,8 +48,22 @@ export abstract class ModelRouter<Document extends mongoose.Document> extends Ro
         } else next()
     }
 
-    findAll = (_req, res, next) => {
-        this.model.find().then(this.renderAll(res,next))
+    findAll = (req, res, next) => {
+        let page = parseInt(req.query._page || 1)
+        page = page > 0 ? page : 1
+
+        const skip = (page - 1) * this.pageSize
+
+        this.model.count({}).exec()
+        .then(count => this.model.find()
+            .skip(skip)
+            .limit(this.pageSize)
+            .then(this.renderAll(res,next, {
+                page, 
+                count, 
+                pageSize: this.pageSize,
+                url: req.url}))
+        )
         .catch(next)
     }
 
