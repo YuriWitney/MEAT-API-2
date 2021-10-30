@@ -6,6 +6,7 @@
   "author": "yuriwitney <yuriwfbarros@gmail.com>",
   "license": "ISC",
   "scripts": {
+		"build": "tsc",
     "test": "ts-node tests/jest.startup.ts --config ./tests/jest.config.js",
     "style:check": "prettier --check src/**/*.ts tests/**/*.ts",
     "style:fix": "prettier --write src/**/*.ts tests/**/*.ts"

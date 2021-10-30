@@ -35,7 +35,7 @@ describe('Post tests', () => {
 				expect(response.body.comments).toBe("Muito bom!!")
 				expect(response.body.user).toBeDefined()
 				expect(response.body.restaurant).toBeDefined()
-				expect(response.body.date).toBe("2021-10-09T21:08:10.000Z") //+3h TODO
+				expect(response.body.date).toBe("2021-10-09T18:08:10.000Z") //+3h TODO
 			}).catch(fail)
 	})
 })
